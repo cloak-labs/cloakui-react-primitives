@@ -17,5 +17,6 @@ export { TypographyList } from "./components/TypographyList";
 export { TypographyListItem } from "./components/TypographyListItem";
 export { TypographyBlockquote } from "./components/TypographyBlockquote";
 export { Date } from "./components/Date";
+export { Separator } from "./components/Separator";
 export { Html } from "./components/Html";
 export { CodeBlock, SyntaxHighlighterOptions, TReactCodeBlockProps, } from "./components/CodeBlock";

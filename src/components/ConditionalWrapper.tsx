@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 export interface ConditionalWrapperProps {
-  condition: (() => boolean) | boolean;
+  condition: (() => boolean) | boolean | string;
   wrapper: (children: ReactElement) => ReactElement;
   children: ReactElement;
 }

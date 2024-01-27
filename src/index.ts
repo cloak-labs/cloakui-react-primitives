@@ -29,6 +29,7 @@ export { TypographyListItem } from "./components/TypographyListItem";
 export { TypographyBlockquote } from "./components/TypographyBlockquote";
 export { Date } from "./components/Date";
 
+export { Separator } from "./components/Separator";
 export { Html } from "./components/Html";
 export {
   CodeBlock,

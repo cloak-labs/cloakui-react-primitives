@@ -31,8 +31,8 @@ export { Date } from "./components/Date";
 
 export { Separator } from "./components/Separator";
 export { Html } from "./components/Html";
-export {
-  CodeBlock,
-  SyntaxHighlighterOptions,
-  TReactCodeBlockProps,
-} from "./components/CodeBlock";
+// export {
+//   CodeBlock,
+//   SyntaxHighlighterOptions,
+//   TReactCodeBlockProps,
+// } from "./components/CodeBlock";

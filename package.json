@@ -44,7 +44,7 @@
   },
   "peerDependencies": {
     "cloakcms": ">= 0.0.2",
-    "html-react-parser": "3.x",
+    "html-react-parser": "5.x",
     "react": ">= 17.x"
   },
   "dependencies": {

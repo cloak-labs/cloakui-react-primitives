@@ -1,9 +1,9 @@
 
-> @cloakui/react-primitives@0.0.1 build /home/kaelan/code/agency-workspace/packages/npm/cloakui/primitives/react
+> @cloakui/react-primitives@0.0.2 build /home/kaelan/code/agency-workspace/packages/npm/cloakui/primitives/react
 > npm run build-ts
 
 
-> @cloakui/react-primitives@0.0.1 build-ts
+> @cloakui/react-primitives@0.0.2 build-ts
 > tsc-silent -p tsconfig.json --suppress
 
 Using TypeScript compiler version 5.3.2 from /home/kaelan/code/agency-workspace/packages/npm/cloakui/primitives/react/node_modules/typescript/lib/typescript.js

@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CodeBlock = exports.Html = exports.Separator = exports.Date = exports.TypographyBlockquote = exports.TypographyListItem = exports.TypographyList = exports.TypographyH6 = exports.TypographyH5 = exports.TypographyH4 = exports.TypographyH3 = exports.TypographyH2 = exports.TypographyH1 = exports.TypographyP = exports.Typography = exports.Container = exports.ConditionalWrapper = exports.Link = exports.buttonStyles = exports.Button = exports.isTag = exports.isElement = exports.parseHtml = void 0;
+exports.Html = exports.Separator = exports.Date = exports.TypographyBlockquote = exports.TypographyListItem = exports.TypographyList = exports.TypographyH6 = exports.TypographyH5 = exports.TypographyH4 = exports.TypographyH3 = exports.TypographyH2 = exports.TypographyH1 = exports.TypographyP = exports.Typography = exports.Container = exports.ConditionalWrapper = exports.Link = exports.buttonStyles = exports.Button = exports.isTag = exports.isElement = exports.parseHtml = void 0;
 // Types:
 __exportStar(require("./types"), exports);
 // Utils:
@@ -60,5 +60,8 @@ var Separator_1 = require("./components/Separator");
 Object.defineProperty(exports, "Separator", { enumerable: true, get: function () { return Separator_1.Separator; } });
 var Html_1 = require("./components/Html");
 Object.defineProperty(exports, "Html", { enumerable: true, get: function () { return Html_1.Html; } });
-var CodeBlock_1 = require("./components/CodeBlock");
-Object.defineProperty(exports, "CodeBlock", { enumerable: true, get: function () { return CodeBlock_1.CodeBlock; } });
+// export {
+//   CodeBlock,
+//   SyntaxHighlighterOptions,
+//   TReactCodeBlockProps,
+// } from "./components/CodeBlock";

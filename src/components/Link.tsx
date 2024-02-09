@@ -1,5 +1,5 @@
 import { getCMSInstance } from "cloakcms";
-import React = require("react");
+import React from "react";
 import { LinkProps } from "../types";
 
 export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(

@@ -1,9 +1,9 @@
 import parse, {
-  DOMNode,
-  Element,
-  HTMLReactParserOptions,
+  type Element,
+  type DOMNode,
+  type HTMLReactParserOptions,
 } from "html-react-parser";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 /**
  * A simple wrapper around html-react-parser's `parse` function, where we

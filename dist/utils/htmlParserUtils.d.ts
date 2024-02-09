@@ -1,5 +1,5 @@
-import { DOMNode, Element, HTMLReactParserOptions } from "html-react-parser";
-import { ReactNode } from "react";
+import { type Element, type DOMNode, type HTMLReactParserOptions } from "html-react-parser";
+import { type ReactNode } from "react";
 /**
  * A simple wrapper around html-react-parser's `parse` function, where we
  * first check if the input is actually a string, and if not we don't parse it.

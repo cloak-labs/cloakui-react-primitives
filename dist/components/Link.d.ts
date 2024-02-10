@@ -1,3 +1,18 @@
+/// <reference types="node" />
 import React from "react";
-import { LinkProps } from "../types";
-export declare const Link: React.ForwardRefExoticComponent<Omit<LinkProps, "ref"> & React.RefAttributes<HTMLAnchorElement>>;
+import { UrlObject } from "url";
+type Url = string | UrlObject;
+export type LinkProps<TInternalLink extends React.ComponentType<{
+    href: Url;
+}> = React.ComponentType<{
+    href: Url;
+}>> = React.ComponentPropsWithoutRef<"a"> & {
+    ref?: React.Ref<any>;
+    children: string | React.ReactNode;
+    openInNewTab?: boolean;
+    internalLinkComponent?: "a" | TInternalLink;
+};
+export declare const Link: React.ForwardRefExoticComponent<Omit<LinkProps<React.ComponentType<{
+    href: Url;
+}>>, "ref"> & React.RefAttributes<HTMLAnchorElement>>;
+export {};

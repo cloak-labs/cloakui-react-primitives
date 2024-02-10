@@ -7,7 +7,18 @@
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "require": "./dist/components/*.js",
+      "import": "./dist/components/*.js",
+      "types": "./dist/components/*.d.ts"
+    },
+    "./utils": {
+      "require": "./dist/utils/index.js",
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
     }
   },
   "scripts": {
@@ -43,13 +54,13 @@
     "typescript": "^5.3.2"
   },
   "peerDependencies": {
-    "@cloakui/styles": ">= 0.2.0",
+    "@cloakui/styles": ">= 0.3.0",
     "cloakcms": ">= 0.2.1",
     "html-react-parser": "5.x",
     "react": ">= 17.x"
   },
   "dependencies": {
-    "@cloakui/utils": "^0.1.0",
+    "@cloakui/utils": "^0.1.1",
     "@radix-ui/react-slot": "^1.0.2",
     "react-syntax-highlighter": "^15.5.0"
   },

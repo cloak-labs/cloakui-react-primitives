@@ -1,7 +1,7 @@
 import { cx } from "@cloakui/styles";
 import { TTypographyListProps } from "@cloakui/types";
 import { CSSProperties, FC, ReactNode } from "react";
-import { parseHtml } from "../utils/htmlParserUtils";
+import { DynamicHtmlParser } from "./DynamicHtmlParser";
 
 export const TypographyList: FC<
   TTypographyListProps<CSSProperties, ReactNode>
@@ -12,7 +12,7 @@ export const TypographyList: FC<
       style={style}
       {...props}
     >
-      {parseHtml(children)}
+      <DynamicHtmlParser>{children}</DynamicHtmlParser>
     </Element>
   );
 };

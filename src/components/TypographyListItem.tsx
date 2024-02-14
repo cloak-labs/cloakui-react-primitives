@@ -14,8 +14,8 @@ export const TypographyListItem: FC<
         {...props}
       >
         <DynamicHtmlParser>{content}</DynamicHtmlParser>
+        <DynamicHtmlParser>{children}</DynamicHtmlParser>
       </li>
-      <DynamicHtmlParser>{children}</DynamicHtmlParser>
     </>
   );
 };

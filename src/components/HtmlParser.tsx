@@ -17,5 +17,5 @@ export const HtmlParser: React.FC<HtmlParserProps> = ({
   options,
   children,
 }) => {
-  return <>{parseHtml(children, options)}</>;
+  return parseHtml(children, options);
 };

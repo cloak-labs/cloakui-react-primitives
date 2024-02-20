@@ -1,8 +1,4 @@
-import { ReactNode } from "react";
-export type ContainerProps = {
-    className?: string;
-    innerClassName?: string;
-    children: ReactNode;
-    as?: keyof JSX.IntrinsicElements;
-};
-export declare function Container({ className, innerClassName, children, as, ...props }: ContainerProps): import("react/jsx-runtime").JSX.Element;
+/// <reference types="react" />
+import { ContainerProps } from "@cloakui/types";
+export type ReactContainerProps = ContainerProps<React.CSSProperties, React.ReactNode, keyof JSX.IntrinsicElements>;
+export declare function Container({ className, cntrClassName, children, as, ...props }: ReactContainerProps): import("react/jsx-runtime").JSX.Element;

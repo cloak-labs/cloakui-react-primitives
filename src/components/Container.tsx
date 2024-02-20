@@ -1,41 +1,25 @@
 import { cx } from "@cloakui/styles";
-import { ReactNode } from "react";
+import { ContainerProps } from "@cloakui/types";
 
-export type ContainerProps = {
-  className?: string;
-  innerClassName?: string;
-  children: ReactNode;
-  as?: keyof JSX.IntrinsicElements;
-};
+export type ReactContainerProps = ContainerProps<
+  React.CSSProperties,
+  React.ReactNode,
+  keyof JSX.IntrinsicElements
+>;
 
 export function Container({
-  className,
-  innerClassName,
+  className = "",
+  cntrClassName = "",
   children,
   as = "div",
   ...props
-}: ContainerProps) {
+}: ReactContainerProps) {
   const Element = as;
-  const defaultInnerClassNames =
-    "px-4 sm:px-6 lg:px-9 mx-auto max-w-7xl lg:max-w-8xl";
   const hasBgColor = className?.includes("bg-") || false;
 
   return (
-    <Element
-      className={cx(
-        !hasBgColor && defaultInnerClassNames,
-        !hasBgColor && innerClassName,
-        className
-      )}
-      {...props}
-    >
-      {hasBgColor ? (
-        <div className={cx(defaultInnerClassNames, innerClassName)}>
-          {children}
-        </div>
-      ) : (
-        children
-      )}
+    <Element className={cx(!hasBgColor && cntrClassName, className)} {...props}>
+      {hasBgColor ? <div className={cntrClassName}>{children}</div> : children}
     </Element>
   );
 }

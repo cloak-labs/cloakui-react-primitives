@@ -1,4 +1,9 @@
-/// <reference types="react" />
+import React from "react";
 import { ContainerProps } from "@cloakui/types";
-export type ReactContainerProps = ContainerProps<React.CSSProperties, React.ReactNode, keyof JSX.IntrinsicElements>;
-export declare function Container({ className, cntrClassName, children, as, ...props }: ReactContainerProps): import("react/jsx-runtime").JSX.Element;
+export type ReactContainerProps = ContainerProps<React.CSSProperties, React.ReactNode | (() => React.ReactNode), "div" | "header" | "main" | "section" | "article" | "aside" | "footer">;
+export declare const Container: React.ForwardRefExoticComponent<import("@cloakui/types").ComponentStyleProps<React.CSSProperties> & {
+    children?: React.ReactNode | (() => React.ReactNode);
+} & {
+    cntrClassName?: string;
+    as?: "div" | "header" | "main" | "section" | "article" | "aside" | "footer";
+} & React.RefAttributes<HTMLDivElement>>;

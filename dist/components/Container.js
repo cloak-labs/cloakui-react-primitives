@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Container = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const styles_1 = require("@cloakui/styles");
-function Container({ className, innerClassName, children, as = "div", ...props }) {
+import { jsx as _jsx } from "react/jsx-runtime";
+import React from "react";
+import { cx } from "@cloakui/styles";
+export const Container = React.forwardRef(({ className = "", cntrClassName = "", children, as = "div", ...props }, ref) => {
     const Element = as;
-    const defaultInnerClassNames = "px-4 sm:px-6 lg:px-9 mx-auto max-w-7xl lg:max-w-8xl";
     const hasBgColor = className?.includes("bg-") || false;
-    return ((0, jsx_runtime_1.jsx)(Element, { className: (0, styles_1.cx)(!hasBgColor && defaultInnerClassNames, !hasBgColor && innerClassName, className), ...props, children: hasBgColor ? ((0, jsx_runtime_1.jsx)("div", { className: (0, styles_1.cx)(defaultInnerClassNames, innerClassName), children: children })) : (children) }));
-}
-exports.Container = Container;
+    const renderedChildren = typeof children == "function" ? children() : children;
+    return (_jsx(Element, { ref: ref, className: cx(!hasBgColor && cntrClassName, className), ...props, children: hasBgColor ? (_jsx("div", { className: cntrClassName, children: renderedChildren })) : (renderedChildren) }));
+});

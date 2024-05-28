@@ -1,6 +1,22 @@
 import { getCMSInstance } from "cloakcms";
-import React = require("react");
-import { LinkProps } from "../types";
+import React from "react";
+import { UrlObject } from "url";
+
+type Url = string | UrlObject;
+export type LinkProps<
+  TInternalLink extends React.ComponentType<{
+    href: Url;
+  }> = React.ComponentType<{
+    href: Url;
+  }>
+> = React.ComponentPropsWithoutRef<"a"> & {
+  // href?: string;
+  ref?: React.Ref<any>;
+  // className?: string;
+  children: string | React.ReactNode;
+  openInNewTab?: boolean;
+  internalLinkComponent?: "a" | TInternalLink; // keyof JSX.IntrinsicElements
+};
 
 export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
   (

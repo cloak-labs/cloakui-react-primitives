@@ -8,5 +8,5 @@ import { DeepPartial } from "ts-essentials";
 type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
 type PropsObject<T extends Component> = React.ComponentPropsWithoutRef<T>;
 type DefaultProps<T extends Component> = DeepPartial<PropsObject<T>> | ((props: PropsObject<T>) => DeepPartial<PropsObject<T>>);
-export declare function withProps<T extends Component>(Component: T, defaultProps: DefaultProps<T>): any;
+export declare function withProps<T extends Component>(Component: T, defaultProps: DefaultProps<T>): React.ForwardRefExoticComponent<React.PropsWithoutRef<React.PropsWithoutRef<React.ComponentProps<T>>> & React.RefAttributes<React.ElementRef<T>>>;
 export {};

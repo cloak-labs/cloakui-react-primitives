@@ -1,6 +1,6 @@
 {
   "name": "@cloakui/react-primitives",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A collection of React primitive components used throughout CloakUI.",
   "main": "dist/index",
   "types": "dist/index.d.ts",

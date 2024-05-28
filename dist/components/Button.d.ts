@@ -10,4 +10,4 @@ declare const Button: React.ForwardRefExoticComponent<React.ButtonHTMLAttributes
     children?: string | React.ReactNode;
     asChild?: boolean;
 } & React.RefAttributes<HTMLButtonElement>>;
-export { Button, buttonStyles, ButtonVariants, ButtonProps };
+export { Button, buttonStyles, ButtonProps };

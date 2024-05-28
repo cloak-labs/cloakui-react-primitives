@@ -1,12 +1,4 @@
-import type { FC } from "react";
-import { Typography, TypographyProps } from "./Typography";
+import { Typography } from "./Typography";
+import { withProps } from "./withProps";
 
-export const TypographyH4: FC<TypographyProps> = (props) => {
-  return (
-    <Typography
-      as="h4"
-      baseClassName="scroll-m-20 text-base sm:text-lg font-semibold tracking-tight"
-      {...props}
-    />
-  );
-};
+export const TypographyH4 = withProps(Typography, { as: "h4" });

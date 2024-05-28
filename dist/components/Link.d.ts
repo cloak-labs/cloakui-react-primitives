@@ -12,7 +12,5 @@ export type LinkProps<TInternalLink extends React.ComponentType<{
     openInNewTab?: boolean;
     internalLinkComponent?: "a" | TInternalLink;
 };
-export declare const Link: React.ForwardRefExoticComponent<Omit<LinkProps<React.ComponentType<{
-    href: Url;
-}>>, "ref"> & React.RefAttributes<HTMLAnchorElement>>;
+export declare const Link: any;
 export {};

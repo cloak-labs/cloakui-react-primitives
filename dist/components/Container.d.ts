@@ -5,5 +5,5 @@ export declare const Container: React.ForwardRefExoticComponent<import("@cloakui
     children?: React.ReactNode | (() => React.ReactNode);
 } & {
     cntrClassName?: string;
-    as?: "article" | "main" | "aside" | "div" | "footer" | "header" | "section";
+    as?: "article" | "aside" | "div" | "footer" | "header" | "main" | "section";
 } & React.RefAttributes<HTMLDivElement>>;

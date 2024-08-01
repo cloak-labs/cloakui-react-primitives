@@ -1,19 +1,7 @@
 import React from "react";
 import { cx } from "@cloakui/styles";
-import { DeepPartial } from "ts-essentials";
 import { deepMerge } from "cloakcms";
-
-/**
- * Set default props with `React.forwardRef`.
- *
- * - Use `withCn` if only setting `className`
- */
-
-type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
-type PropsObject<T extends Component> = React.ComponentPropsWithoutRef<T>;
-type DefaultProps<T extends Component> =
-  | DeepPartial<PropsObject<T>>
-  | ((props: PropsObject<T>) => DeepPartial<PropsObject<T>>);
+import type { Component, DefaultProps, PropsObject } from "../types";
 
 export function withProps<T extends Component>(
   Component: T,
@@ -32,6 +20,7 @@ export function withProps<T extends Component>(
       const finalProps = isDefaultPropsFunction
         ? deepMerge(props, finalDefaultProps)
         : deepMerge(finalDefaultProps, props);
+
       return (
         <ComponentWithClassName
           ref={ref}

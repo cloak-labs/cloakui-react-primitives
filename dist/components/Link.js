@@ -1,16 +1,16 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { getCMSInstance } from "cloakcms";
 import React from "react";
-export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", children, ...props }, ref) => {
-    if (!href)
-        return (_jsx("span", { ref: ref, ...props, children: children }));
+export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
+    if (!href || href == "#")
+        return (_jsx(Fallback, { ref: ref, ...props, children: children }));
     let currentURL;
     if (typeof window !== "undefined") {
         const url = new URL(window.location.href);
         currentURL = `${url.protocol}//${url.host}`;
     }
     else {
-        currentURL = getCMSInstance().url;
+        // when rendering server-side, we resort to user manually providing their frontend URL via prop:
+        currentURL = frontendUrl;
     }
     const isInternalLink = href &&
         (href.startsWith(currentURL) ||
@@ -30,3 +30,4 @@ export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkC
         href = `https://${href}`;
     return (_jsx("a", { target: openInNewTab ? "_blank" : "", rel: "noopener noreferrer", ref: ref, href: href, ...props, children: children }));
 });
+Link.displayName = "Link";

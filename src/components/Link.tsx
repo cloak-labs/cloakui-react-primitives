@@ -1,6 +1,5 @@
-import { getCMSInstance } from "cloakcms";
 import React from "react";
-import { UrlObject } from "url";
+import { type UrlObject } from "url";
 
 type Url = string | UrlObject;
 export type LinkProps<
@@ -10,12 +9,13 @@ export type LinkProps<
     href: Url;
   }>
 > = React.ComponentPropsWithoutRef<"a"> & {
-  // href?: string;
   ref?: React.Ref<any>;
-  // className?: string;
   children: string | React.ReactNode;
   openInNewTab?: boolean;
+  fallbackAs?: React.ElementType;
   internalLinkComponent?: "a" | TInternalLink; // keyof JSX.IntrinsicElements
+  /** Provide your site's frontend URL in order for internal links to render properly server-side */
+  frontendUrl?: string;
 };
 
 export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
@@ -24,16 +24,18 @@ export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
       href,
       openInNewTab = true,
       internalLinkComponent = "a",
+      frontendUrl,
+      fallbackAs: Fallback = "span",
       children,
       ...props
     },
     ref
   ) => {
-    if (!href)
+    if (!href || href == "#")
       return (
-        <span ref={ref} {...props}>
+        <Fallback ref={ref} {...props}>
           {children}
-        </span>
+        </Fallback>
       );
 
     let currentURL;
@@ -41,7 +43,8 @@ export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
       const url = new URL(window.location.href);
       currentURL = `${url.protocol}//${url.host}`;
     } else {
-      currentURL = getCMSInstance().url;
+      // when rendering server-side, we resort to user manually providing their frontend URL via prop:
+      currentURL = frontendUrl;
     }
 
     const isInternalLink =
@@ -85,3 +88,5 @@ export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
     );
   }
 );
+
+Link.displayName = "Link";

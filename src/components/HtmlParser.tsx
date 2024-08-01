@@ -13,9 +13,5 @@ export type HtmlParserProps = {
   children: string | React.ReactNode;
 };
 
-export const HtmlParser: React.FC<HtmlParserProps> = ({
-  options,
-  children,
-}) => {
-  return parseHtml(children, options);
-};
+export const HtmlParser: React.FC<HtmlParserProps> = ({ options, children }) =>
+  parseHtml(children, options);

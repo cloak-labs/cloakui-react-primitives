@@ -3,9 +3,21 @@ import type {
   GenericParentComponent,
 } from "@cloakui/types";
 import type { CSSProperties, ReactNode } from "react";
+import { DeepPartial } from "ts-essentials";
 
-export type ReactStyleProps = ComponentStyleProps<CSSProperties>;
+export type CSSPropertiesAndVariables = CSSProperties & {
+  [key: `--${string}`]: string | number;
+};
+export type ReactStyleProps = ComponentStyleProps<CSSPropertiesAndVariables>;
 export type ReactGenericParentComponent = GenericParentComponent<
-  CSSProperties,
+  CSSPropertiesAndVariables,
   ReactNode
 >;
+
+// used in `withProps`:
+export type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
+export type PropsObject<T extends Component> =
+  React.ComponentPropsWithoutRef<T>;
+export type DefaultProps<T extends Component> =
+  | DeepPartial<PropsObject<T>>
+  | ((props: PropsObject<T>) => DeepPartial<PropsObject<T>>);

@@ -1,4 +1,11 @@
 import type { ComponentStyleProps, GenericParentComponent } from "@cloakui/types";
 import type { CSSProperties, ReactNode } from "react";
-export type ReactStyleProps = ComponentStyleProps<CSSProperties>;
-export type ReactGenericParentComponent = GenericParentComponent<CSSProperties, ReactNode>;
+import { DeepPartial } from "ts-essentials";
+export type CSSPropertiesAndVariables = CSSProperties & {
+    [key: `--${string}`]: string | number;
+};
+export type ReactStyleProps = ComponentStyleProps<CSSPropertiesAndVariables>;
+export type ReactGenericParentComponent = GenericParentComponent<CSSPropertiesAndVariables, ReactNode>;
+export type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
+export type PropsObject<T extends Component> = React.ComponentPropsWithoutRef<T>;
+export type DefaultProps<T extends Component> = DeepPartial<PropsObject<T>> | ((props: PropsObject<T>) => DeepPartial<PropsObject<T>>);

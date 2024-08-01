@@ -1,6 +1,5 @@
 import React from "react";
-import { cx } from "@cloakui/styles";
-import { ContainerProps } from "@cloakui/types";
+import type { ContainerProps } from "@cloakui/types";
 
 export type ReactContainerProps = ContainerProps<
   React.CSSProperties,
@@ -9,27 +8,16 @@ export type ReactContainerProps = ContainerProps<
 >;
 
 export const Container = React.forwardRef<HTMLDivElement, ReactContainerProps>(
-  (
-    { className = "", cntrClassName = "", children, as = "div", ...props },
-    ref
-  ) => {
-    const Element = as;
-    const hasBgColor = className?.includes("bg-") || false;
+  ({ children, as: Element = "div", ...props }, ref) => {
     const renderedChildren =
       typeof children == "function" ? children() : children;
 
     return (
-      <Element
-        ref={ref}
-        className={cx(!hasBgColor && cntrClassName, className)}
-        {...props}
-      >
-        {hasBgColor ? (
-          <div className={cntrClassName}>{renderedChildren}</div>
-        ) : (
-          renderedChildren
-        )}
+      <Element ref={ref} {...props}>
+        {renderedChildren}
       </Element>
     );
   }
 );
+
+Container.displayName = "Container";

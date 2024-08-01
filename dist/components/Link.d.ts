@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import React from "react";
-import { UrlObject } from "url";
+import { type UrlObject } from "url";
 type Url = string | UrlObject;
 export type LinkProps<TInternalLink extends React.ComponentType<{
     href: Url;
@@ -10,7 +10,10 @@ export type LinkProps<TInternalLink extends React.ComponentType<{
     ref?: React.Ref<any>;
     children: string | React.ReactNode;
     openInNewTab?: boolean;
+    fallbackAs?: React.ElementType;
     internalLinkComponent?: "a" | TInternalLink;
+    /** Provide your site's frontend URL in order for internal links to render properly server-side */
+    frontendUrl?: string;
 };
 export declare const Link: React.ForwardRefExoticComponent<Omit<LinkProps<React.ComponentType<{
     href: Url;

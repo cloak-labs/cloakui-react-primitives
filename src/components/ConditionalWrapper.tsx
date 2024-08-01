@@ -11,7 +11,6 @@ export const ConditionalWrapper = ({
   wrapper,
   children,
 }: ConditionalWrapperProps) => {
-  const passesCondition =
-    typeof condition === "function" ? condition() : condition;
-  return passesCondition ? wrapper(children) : children;
+  const valid = typeof condition === "function" ? condition() : condition;
+  return valid ? wrapper(children) : children;
 };

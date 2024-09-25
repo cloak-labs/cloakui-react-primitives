@@ -1,8 +1,7 @@
-import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
-    if (!href || href == "#")
-        return (_jsx(Fallback, { ref: ref, ...props, children: children }));
+    if (!href || href === "#")
+        return React.createElement(Fallback, { ref, ...props }, children);
     let currentURL;
     if (typeof window !== "undefined") {
         const url = new URL(window.location.href);
@@ -13,21 +12,29 @@ export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkC
         currentURL = frontendUrl;
     }
     const isInternalLink = href &&
-        (href.startsWith(currentURL) ||
-            (href.startsWith("/") && !href.startsWith("/api/")));
-    const isAnchorLink = href && href.startsWith("#");
+        (href.toString().startsWith(currentURL || "") ||
+            (href.toString().startsWith("/") &&
+                !href.toString().startsWith("/api/")));
+    const isAnchorLink = href && href.toString().startsWith("#");
     if (isInternalLink) {
         const Comp = internalLinkComponent;
-        return React.createElement(Comp, { ref, href, ...props }, children); // using React.createElement because it allows for explicit typing; before the inference was too complex and caused TS error
+        return React.createElement(Comp, { ref, href, ...props }, children);
     }
     if (isAnchorLink) {
-        return (_jsx("a", { ref: ref, href: href, ...props, children: children }));
+        return React.createElement("a", { ref, href, ...props }, children);
     }
-    if (!href.startsWith("/") &&
-        !href.startsWith("http") &&
-        !href.startsWith("mailto:") &&
-        !href.startsWith("tel:"))
-        href = `https://${href}`;
-    return (_jsx("a", { target: openInNewTab ? "_blank" : "", rel: "noopener noreferrer", ref: ref, href: href, ...props, children: children }));
+    let finalHref = href.toString();
+    if (!finalHref.startsWith("/") &&
+        !finalHref.startsWith("http") &&
+        !finalHref.startsWith("mailto:") &&
+        !finalHref.startsWith("tel:"))
+        finalHref = `https://${finalHref}`;
+    return React.createElement("a", {
+        target: openInNewTab ? "_blank" : undefined,
+        rel: "noopener noreferrer",
+        ref,
+        href: finalHref,
+        ...props,
+    }, children);
 });
 Link.displayName = "Link";

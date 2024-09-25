@@ -13,12 +13,12 @@ export type LinkProps<
   children: string | React.ReactNode;
   openInNewTab?: boolean;
   fallbackAs?: React.ElementType;
-  internalLinkComponent?: "a" | TInternalLink; // keyof JSX.IntrinsicElements
+  internalLinkComponent?: TInternalLink | keyof JSX.IntrinsicElements;
   /** Provide your site's frontend URL in order for internal links to render properly server-side */
   frontendUrl?: string;
 };
 
-export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
       href,
@@ -31,14 +31,10 @@ export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
     },
     ref
   ) => {
-    if (!href || href == "#")
-      return (
-        <Fallback ref={ref} {...props}>
-          {children}
-        </Fallback>
-      );
+    if (!href || href === "#")
+      return React.createElement(Fallback, { ref, ...props }, children);
 
-    let currentURL;
+    let currentURL: string | undefined;
     if (typeof window !== "undefined") {
       const url = new URL(window.location.href);
       currentURL = `${url.protocol}//${url.host}`;
@@ -49,42 +45,40 @@ export const Link = React.forwardRef<React.ElementRef<"a">, LinkProps>(
 
     const isInternalLink =
       href &&
-      (href.startsWith(currentURL) ||
-        (href.startsWith("/") && !href.startsWith("/api/")));
+      (href.toString().startsWith(currentURL || "") ||
+        (href.toString().startsWith("/") &&
+          !href.toString().startsWith("/api/")));
 
-    const isAnchorLink = href && href.startsWith("#");
+    const isAnchorLink = href && href.toString().startsWith("#");
 
     if (isInternalLink) {
-      const Comp = internalLinkComponent;
-      return React.createElement(Comp, { ref, href, ...props }, children); // using React.createElement because it allows for explicit typing; before the inference was too complex and caused TS error
+      const Comp = internalLinkComponent as React.ElementType;
+      return React.createElement(Comp, { ref, href, ...props }, children);
     }
 
     if (isAnchorLink) {
-      return (
-        <a ref={ref} href={href} {...props}>
-          {children}
-        </a>
-      );
+      return React.createElement("a", { ref, href, ...props }, children);
     }
 
+    let finalHref = href.toString();
     if (
-      !href.startsWith("/") &&
-      !href.startsWith("http") &&
-      !href.startsWith("mailto:") &&
-      !href.startsWith("tel:")
+      !finalHref.startsWith("/") &&
+      !finalHref.startsWith("http") &&
+      !finalHref.startsWith("mailto:") &&
+      !finalHref.startsWith("tel:")
     )
-      href = `https://${href}`;
+      finalHref = `https://${finalHref}`;
 
-    return (
-      <a
-        target={openInNewTab ? "_blank" : ""}
-        rel="noopener noreferrer"
-        ref={ref}
-        href={href}
-        {...props}
-      >
-        {children}
-      </a>
+    return React.createElement(
+      "a",
+      {
+        target: openInNewTab ? "_blank" : undefined,
+        rel: "noopener noreferrer",
+        ref,
+        href: finalHref,
+        ...props,
+      },
+      children
     );
   }
 );

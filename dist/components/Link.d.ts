@@ -11,7 +11,7 @@ export type LinkProps<TInternalLink extends React.ComponentType<{
     children: string | React.ReactNode;
     openInNewTab?: boolean;
     fallbackAs?: React.ElementType;
-    internalLinkComponent?: "a" | TInternalLink;
+    internalLinkComponent?: TInternalLink | keyof JSX.IntrinsicElements;
     /** Provide your site's frontend URL in order for internal links to render properly server-side */
     frontendUrl?: string;
 };

@@ -7,7 +7,8 @@ export type CSSPropertiesAndVariables = CSSProperties & {
 };
 export type ReactStyleProps = ComponentStyleProps<CSSPropertiesAndVariables>;
 export type ReactStylePropsWithCx = ComponentStyleProps<CSSPropertiesAndVariables, ClassValue>;
-export type ReactGenericParentComponent = GenericParentComponent<CSSPropertiesAndVariables, ReactNode>;
+export type ReactGenericParentComponent<TClassName = string, TChildren = ReactNode> = GenericParentComponent<CSSPropertiesAndVariables, TClassName, TChildren>;
+export type ReactGenericParentComponentWithCx<TChildren = ReactNode> = ReactGenericParentComponent<ClassValue, TChildren>;
 export type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
 export type PropsObject<T extends Component> = React.ComponentPropsWithoutRef<T>;
 export type DefaultPropsObject<T extends Component> = DeepPartial<PropsObject<T>>;

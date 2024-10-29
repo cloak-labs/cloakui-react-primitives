@@ -14,10 +14,12 @@ export type ReactStylePropsWithCx = ComponentStyleProps<
   CSSPropertiesAndVariables,
   ClassValue
 >;
-export type ReactGenericParentComponent = GenericParentComponent<
-  CSSPropertiesAndVariables,
-  ReactNode
->;
+export type ReactGenericParentComponent<
+  TClassName = string,
+  TChildren = ReactNode
+> = GenericParentComponent<CSSPropertiesAndVariables, TClassName, TChildren>;
+export type ReactGenericParentComponentWithCx<TChildren = ReactNode> =
+  ReactGenericParentComponent<ClassValue, TChildren>;
 
 // used in `withProps`:
 export type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;

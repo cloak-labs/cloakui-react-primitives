@@ -1,11 +1,20 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
-import { buttonStyles, ButtonVariants } from "@cloakui/styles";
+import {
+  buttonStyles,
+  cx,
+  type ButtonVariants,
+  type ClassValue,
+} from "@cloakui/styles";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "className"
+> & {
   variants?: ButtonVariants;
   children?: string | React.ReactNode;
   asChild?: boolean;
+  className?: ClassValue;
 };
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -15,7 +24,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Component
         className={
-          variants ? buttonStyles({ ...variants, className }) : className
+          variants ? buttonStyles({ ...variants, className }) : cx(className)
         }
         ref={ref}
         {...props}

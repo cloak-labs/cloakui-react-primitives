@@ -1,13 +1,15 @@
 import * as React from "react";
-import { buttonStyles, ButtonVariants } from "@cloakui/styles";
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+import { buttonStyles, type ButtonVariants, type ClassValue } from "@cloakui/styles";
+type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
     variants?: ButtonVariants;
     children?: string | React.ReactNode;
     asChild?: boolean;
+    className?: ClassValue;
 };
-declare const Button: React.ForwardRefExoticComponent<React.ButtonHTMLAttributes<HTMLButtonElement> & {
+declare const Button: React.ForwardRefExoticComponent<Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
     variants?: ButtonVariants;
     children?: string | React.ReactNode;
     asChild?: boolean;
+    className?: ClassValue;
 } & React.RefAttributes<HTMLButtonElement>>;
 export { Button, buttonStyles, ButtonProps };

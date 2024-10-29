@@ -3,6 +3,7 @@ import type { ContainerProps } from "@cloakui/types";
 
 export type ReactContainerProps = ContainerProps<
   React.CSSProperties,
+  string,
   React.ReactNode | (() => React.ReactNode),
   "div" | "header" | "main" | "section" | "article" | "aside" | "footer"
 >;

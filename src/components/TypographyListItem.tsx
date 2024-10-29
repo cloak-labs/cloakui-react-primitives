@@ -1,10 +1,10 @@
 import { DynamicHtmlParser } from "./DynamicHtmlParser";
-import { cx } from "@cloakui/styles";
+import { cx, type ClassValue } from "@cloakui/styles";
 import type { TTypographyListItemProps } from "@cloakui/types";
 import type { CSSProperties, FC, ReactNode } from "react";
 
 export const TypographyListItem: FC<
-  TTypographyListItemProps<CSSProperties, ReactNode>
+  TTypographyListItemProps<CSSProperties, ClassValue, ReactNode>
 > = ({ content, className, children, ...props }) => (
   <li className={cx("list-circle leading-7 pl-2", className)} {...props}>
     <DynamicHtmlParser>{content}</DynamicHtmlParser>

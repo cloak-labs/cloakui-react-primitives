@@ -1,12 +1,21 @@
-import { DynamicHtmlParser } from "./DynamicHtmlParser";
+import React from "react";
 import { cx, type ClassValue } from "@cloakui/styles";
 import type { TTypographyListProps } from "@cloakui/types";
-import type { CSSProperties, FC, ReactNode } from "react";
 
-export const TypographyList: FC<
-  TTypographyListProps<CSSProperties, ClassValue, ReactNode>
-> = ({ as: Element, className, children, ...props }) => (
-  <Element className={cx("ml-6 list-disc space-y-3", className)} {...props}>
-    <DynamicHtmlParser>{children}</DynamicHtmlParser>
-  </Element>
-);
+// Create a generic version that handles the conditional ref type
+export const TypographyList = React.forwardRef<
+  HTMLUListElement | HTMLOListElement,
+  TTypographyListProps<React.CSSProperties, ClassValue, React.ReactNode>
+>(({ as: Element = "ul", className, children, ...props }, ref) => {
+  return (
+    <Element
+      ref={ref as any}
+      className={cx("ml-6 list-disc space-y-3", className)}
+      {...props}
+    >
+      {children}
+    </Element>
+  );
+});
+
+TypographyList.displayName = "TypographyList";

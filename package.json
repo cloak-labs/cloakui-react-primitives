@@ -14,11 +14,6 @@
       "require": "./dist/components/*.js",
       "import": "./dist/components/*.js",
       "types": "./dist/components/*.d.ts"
-    },
-    "./utils": {
-      "require": "./dist/utils/index.js",
-      "import": "./dist/utils/index.js",
-      "types": "./dist/utils/index.d.ts"
     }
   },
   "scripts": {
@@ -63,13 +58,7 @@
   },
   "peerDependencies": {
     "@cloakui/styles": ">= 0.3.x",
-    "html-react-parser": "5.x",
     "react": ">= 17.x"
-  },
-  "peerDependenciesMeta": {
-    "html-react-parser": {
-      "optional": true
-    }
   },
   "publishConfig": {
     "access": "public"

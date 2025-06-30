@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import {
-  buttonStyles,
   cx,
+  buttonStyles,
   type ButtonVariants,
   type ClassValue,
 } from "@cloakui/styles";
@@ -20,7 +20,6 @@ type ButtonProps = Omit<
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variants, asChild = false, ...props }, ref) => {
     const Component = asChild ? Slot : "button";
-
     return (
       <Component
         className={

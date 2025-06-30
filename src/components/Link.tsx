@@ -1,4 +1,5 @@
 import React from "react";
+import { isAnchorLink } from "@cloakui/utils";
 import { type UrlObject } from "url";
 
 type Url = string | UrlObject;
@@ -39,28 +40,30 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       const url = new URL(window.location.href);
       currentURL = `${url.protocol}//${url.host}`;
     } else {
-      // when rendering server-side, we resort to user manually providing their frontend URL via prop:
       currentURL = frontendUrl;
     }
 
+    const hrefString = href.toString();
+
     const isInternalLink =
       href &&
-      (href.toString().startsWith(currentURL || "") ||
-        (href.toString().startsWith("/") &&
-          !href.toString().startsWith("/api/")));
+      (hrefString.startsWith(currentURL || "") ||
+        (hrefString.startsWith("/") && !hrefString.startsWith("/api/")));
 
-    const isAnchorLink = href && href.toString().startsWith("#");
+    if (isAnchorLink(hrefString, currentURL)) {
+      return React.createElement(
+        "a",
+        { ref, href: hrefString, ...props },
+        children
+      );
+    }
 
     if (isInternalLink) {
       const Comp = internalLinkComponent as React.ElementType;
       return React.createElement(Comp, { ref, href, ...props }, children);
     }
 
-    if (isAnchorLink) {
-      return React.createElement("a", { ref, href, ...props }, children);
-    }
-
-    let finalHref = href.toString();
+    let finalHref = hrefString;
     if (
       !finalHref.startsWith("/") &&
       !finalHref.startsWith("http") &&

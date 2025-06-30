@@ -1,4 +1,5 @@
 import React from "react";
+import { isAnchorLink } from "@cloakui/utils";
 export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
     if (!href || href === "#")
         return React.createElement(Fallback, { ref, ...props }, children);
@@ -8,22 +9,20 @@ export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkC
         currentURL = `${url.protocol}//${url.host}`;
     }
     else {
-        // when rendering server-side, we resort to user manually providing their frontend URL via prop:
         currentURL = frontendUrl;
     }
+    const hrefString = href.toString();
     const isInternalLink = href &&
-        (href.toString().startsWith(currentURL || "") ||
-            (href.toString().startsWith("/") &&
-                !href.toString().startsWith("/api/")));
-    const isAnchorLink = href && href.toString().startsWith("#");
+        (hrefString.startsWith(currentURL || "") ||
+            (hrefString.startsWith("/") && !hrefString.startsWith("/api/")));
+    if (isAnchorLink(hrefString, currentURL)) {
+        return React.createElement("a", { ref, href: hrefString, ...props }, children);
+    }
     if (isInternalLink) {
         const Comp = internalLinkComponent;
         return React.createElement(Comp, { ref, href, ...props }, children);
     }
-    if (isAnchorLink) {
-        return React.createElement("a", { ref, href, ...props }, children);
-    }
-    let finalHref = href.toString();
+    let finalHref = hrefString;
     if (!finalHref.startsWith("/") &&
         !finalHref.startsWith("http") &&
         !finalHref.startsWith("mailto:") &&

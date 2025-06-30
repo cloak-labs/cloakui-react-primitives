@@ -1,6 +1,6 @@
-import { FormatDateProps, formatDate } from "@cloakui/utils";
-import { FC } from "react";
-import { ReactStyleProps } from "../types";
+import { formatDate, type FormatDateProps } from "@cloakui/utils";
+import { type FC } from "react";
+import { type ReactStyleProps } from "../types";
 
 export const Date: FC<ReactStyleProps & FormatDateProps> = ({
   dateTime,

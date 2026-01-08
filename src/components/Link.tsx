@@ -3,6 +3,13 @@ import { isAnchorLink } from "@cloakui/utils";
 import { type UrlObject } from "url";
 
 type Url = string | UrlObject;
+
+function stripTrailingSlash(url: string): string {
+  if (!url) return "";
+  if (url === "/") return url;
+  return url.replace(/\/$/, "");
+}
+
 export type LinkProps<
   TInternalLink extends React.ComponentType<{
     href: Url;
@@ -13,7 +20,7 @@ export type LinkProps<
   ref?: React.Ref<any>;
   children: string | React.ReactNode;
   openInNewTab?: boolean;
-  fallbackAs?: React.ElementType;
+  fallbackAs?: React.ElementType | null;
   internalLinkComponent?: TInternalLink | keyof JSX.IntrinsicElements;
   /** Provide your site's frontend URL in order for internal links to render properly server-side */
   frontendUrl?: string;
@@ -32,8 +39,11 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     },
     ref
   ) => {
-    if (!href || href === "#")
-      return React.createElement(Fallback, { ref, ...props }, children);
+    if (!href || href === "#") {
+      return Fallback
+        ? React.createElement(Fallback, { ref, ...props }, children)
+        : children;
+    }
 
     let currentURL: string | undefined;
     if (typeof window !== "undefined") {
@@ -60,7 +70,11 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
 
     if (isInternalLink) {
       const Comp = internalLinkComponent as React.ElementType;
-      return React.createElement(Comp, { ref, href, ...props }, children);
+      return React.createElement(
+        Comp,
+        { ref, href: stripTrailingSlash(href), ...props },
+        children
+      );
     }
 
     let finalHref = hrefString;

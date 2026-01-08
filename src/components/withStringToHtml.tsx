@@ -15,9 +15,9 @@ type ComponentType<P = any> =
   | React.ComponentClass<P>;
 
 /**
- * HOC that conditionally renders children as HTML or React nodes
- * If children is a string and contains HTML, it uses dangerouslySetInnerHTML
- * Otherwise, it renders children directly
+ * HOC that conditionally renders children as HTML or React nodes.
+ * If `children` is a string and contains HTML, it gets rendered via dangerouslySetInnerHTML
+ * Otherwise, the `children` are rendered directly.
  */
 export function withStringToHtml<P extends Partial<WithHtmlContentProps>>(
   Component: ComponentType<P>
@@ -34,19 +34,24 @@ export function withStringToHtml<P extends Partial<WithHtmlContentProps>>(
       (Component as any).$$typeof === Symbol.for("react.forward_ref");
 
     if (typeof children === "string" && containsHtml(children)) {
+      const unescapedString = children
+        .replace(/\\n/g, "") // Remove literal \n
+        .replace(/\\"/g, '"') // Replace \" with "
+        .trim();
+
       return supportsRef ? (
         <Component
           {...(rest as any)}
           ref={ref}
           dangerouslySetInnerHTML={{
-            __html: children,
+            __html: unescapedString,
           }}
         />
       ) : (
         <Component
           {...(rest as any)}
           dangerouslySetInnerHTML={{
-            __html: children,
+            __html: unescapedString,
           }}
         />
       );

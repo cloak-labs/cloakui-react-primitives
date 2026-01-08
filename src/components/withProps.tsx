@@ -1,23 +1,30 @@
 import React from "react";
 import { cx } from "@cloakui/styles";
 import { deepMerge } from "@kaelan/deep-merge-ts";
-import type { Component, DefaultProps, DefaultPropsFunction } from "../types";
+import type {
+  Component,
+  DefaultProps,
+  DefaultPropsFunction,
+  WithPropsResult,
+} from "../types";
 
-export function withProps<T extends Component>(
-  Component: T,
-  defaultProps: DefaultProps<T>
-) {
+export function withProps<
+  T extends Component,
+  D extends DefaultProps<T> = DefaultProps<T>
+>(Component: T, defaultProps: D) {
   const ComponentWithClassName = Component as React.ForwardRefExoticComponent<
     React.ComponentPropsWithoutRef<T> & React.RefAttributes<React.ElementRef<T>>
   >;
 
   const WithProps = React.forwardRef<
     React.ElementRef<T>,
-    React.ComponentProps<T>
+    WithPropsResult<T, D>
   >(function ExtendComponent(props, ref) {
     const isDefaultPropsFunction = typeof defaultProps === "function";
     const finalDefaultProps = isDefaultPropsFunction
-      ? (defaultProps as DefaultPropsFunction<T>)(props)
+      ? (defaultProps as DefaultPropsFunction<T>)(
+          props as React.ComponentPropsWithoutRef<T>
+        )
       : defaultProps;
 
     if ("children" in finalDefaultProps) {
@@ -44,6 +51,14 @@ export function withProps<T extends Component>(
           (finalDefaultProps as any).className,
           (props as any).className
         )}
+        {...("cntrClassName" in finalDefaultProps
+          ? {
+              cntrClassName: cx(
+                finalDefaultProps.cntrClassName,
+                (props as any).cntrClassName
+              ),
+            }
+          : {})}
       />
     );
   });

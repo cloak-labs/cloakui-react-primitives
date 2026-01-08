@@ -34,3 +34,22 @@ export type DefaultPropsFunction<T extends Component> = (
 export type DefaultProps<T extends Component> =
   | DefaultPropsObject<T>
   | DefaultPropsFunction<T>;
+
+// Helper type to make keys optional
+type MakeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+// Extract keys from default props (handles both object and function cases)
+type ExtractDefaultPropKeys<
+  T extends Component,
+  D extends DefaultProps<T>
+> = D extends DefaultPropsFunction<T>
+  ? keyof ReturnType<D>
+  : D extends DefaultPropsObject<T>
+  ? keyof D
+  : never;
+
+// Result props type where default props become optional
+export type WithPropsResult<
+  T extends Component,
+  D extends DefaultProps<T>
+> = MakeOptional<PropsObject<T>, ExtractDefaultPropKeys<T, D>>;

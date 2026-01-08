@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export interface ConditionalWrapperProps {
   condition: (() => boolean) | boolean | string;
-  wrapper: (children: ReactElement) => ReactElement;
-  children: ReactElement;
+  wrapper: (children: ReactNode) => ReactNode;
+  children: ReactNode;
 }
 
 export const ConditionalWrapper = ({

@@ -14,10 +14,14 @@ export function withStringToHtml(Component) {
             "$$typeof" in Component &&
             Component.$$typeof === Symbol.for("react.forward_ref");
         if (typeof children === "string" && containsHtml(children)) {
+            const unescapedString = children
+                .replace(/\\n/g, "") // Remove literal \n
+                .replace(/\\"/g, '"') // Replace \" with "
+                .trim();
             return supportsRef ? (_jsx(Component, { ...rest, ref: ref, dangerouslySetInnerHTML: {
-                    __html: children,
+                    __html: unescapedString,
                 } })) : (_jsx(Component, { ...rest, dangerouslySetInnerHTML: {
-                    __html: children,
+                    __html: unescapedString,
                 } }));
         }
         return supportsRef ? (_jsx(Component, { ...rest, ref: ref, children: children })) : (_jsx(Component, { ...rest, children: children }));

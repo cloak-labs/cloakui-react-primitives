@@ -6,3 +6,4 @@ export type BaseTypographyProps = TypographyProps & HTMLAttributes<HTMLElement> 
     as: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "div" | "blockquote";
 };
 export declare const Typography: FC<BaseTypographyProps>;
+//# sourceMappingURL=Typography.d.ts.map

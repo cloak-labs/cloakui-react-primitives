@@ -1,3 +1,3 @@
-import React from "react";
-import { ReactGenericParentComponent } from "../types";
-export declare const HtmlParser: React.FC<ReactGenericParentComponent>;
+/// <reference types="react" />
+export declare const HtmlParser: import("react").ForwardRefExoticComponent<Omit<any, "ref"> & import("react").RefAttributes<any>>;
+//# sourceMappingURL=HtmlParser.d.ts.map

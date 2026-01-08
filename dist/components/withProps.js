@@ -21,7 +21,11 @@ export function withProps(Component, defaultProps) {
         const finalProps = (isDefaultPropsFunction
             ? deepMerge(props, finalDefaultProps)
             : deepMerge(finalDefaultProps, props));
-        return (_jsx(ComponentWithClassName, { ref: ref, ...finalProps, className: cx(finalDefaultProps.className, props.className) }));
+        return (_jsx(ComponentWithClassName, { ref: ref, ...finalProps, className: cx(finalDefaultProps.className, props.className), ...("cntrClassName" in finalDefaultProps
+                ? {
+                    cntrClassName: cx(finalDefaultProps.cntrClassName, props.cntrClassName),
+                }
+                : {}) }));
     });
     WithProps.displayName = `withProps(${Component?.displayName || Component?.name || "Component"})`;
     return WithProps;

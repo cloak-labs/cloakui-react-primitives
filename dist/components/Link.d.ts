@@ -10,7 +10,7 @@ export type LinkProps<TInternalLink extends React.ComponentType<{
     ref?: React.Ref<any>;
     children: string | React.ReactNode;
     openInNewTab?: boolean;
-    fallbackAs?: React.ElementType;
+    fallbackAs?: React.ElementType | null;
     internalLinkComponent?: TInternalLink | keyof JSX.IntrinsicElements;
     /** Provide your site's frontend URL in order for internal links to render properly server-side */
     frontendUrl?: string;
@@ -19,3 +19,4 @@ export declare const Link: React.ForwardRefExoticComponent<Omit<LinkProps<React.
     href: Url;
 }>>, "ref"> & React.RefAttributes<HTMLAnchorElement>>;
 export {};
+//# sourceMappingURL=Link.d.ts.map

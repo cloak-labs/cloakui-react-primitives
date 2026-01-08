@@ -7,3 +7,4 @@ export declare const Container: React.ForwardRefExoticComponent<import("@cloakui
     cntrClassName?: string;
     as?: "article" | "aside" | "div" | "footer" | "header" | "main" | "section";
 } & React.RefAttributes<HTMLDivElement>>;
+//# sourceMappingURL=Container.d.ts.map

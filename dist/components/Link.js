@@ -1,8 +1,18 @@
 import React from "react";
 import { isAnchorLink } from "@cloakui/utils";
+function stripTrailingSlash(url) {
+    if (!url)
+        return "";
+    if (url === "/")
+        return url;
+    return url.replace(/\/$/, "");
+}
 export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
-    if (!href || href === "#")
-        return React.createElement(Fallback, { ref, ...props }, children);
+    if (!href || href === "#") {
+        return Fallback
+            ? React.createElement(Fallback, { ref, ...props }, children)
+            : children;
+    }
     let currentURL;
     if (typeof window !== "undefined") {
         const url = new URL(window.location.href);
@@ -20,7 +30,7 @@ export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkC
     }
     if (isInternalLink) {
         const Comp = internalLinkComponent;
-        return React.createElement(Comp, { ref, href, ...props }, children);
+        return React.createElement(Comp, { ref, href: stripTrailingSlash(href), ...props }, children);
     }
     let finalHref = hrefString;
     if (!finalHref.startsWith("/") &&

@@ -10,3 +10,4 @@ type ComponentType<P = any> = React.ForwardRefExoticComponent<React.PropsWithout
  */
 export declare function withStringToHtml<P extends Partial<WithHtmlContentProps>>(Component: ComponentType<P>): React.ForwardRefExoticComponent<React.PropsWithoutRef<P> & React.RefAttributes<any>>;
 export {};
+//# sourceMappingURL=withStringToHtml.d.ts.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"SoftPageRefreshButton.d.ts","sourceRoot":"","sources":["../../src/components/SoftPageRefreshButton.tsx"],"names":[],"mappings":";AACA,OAAO,EAAE,KAAK,qBAAqB,EAAE,MAAM,2BAA2B,CAAC;AAEvE,MAAM,MAAM,0BAA0B,GAAG,qBAAqB,GAAG;IAC/D,YAAY,EAAE,OAAO,CAAC;IACtB,OAAO,EAAE,MAAM,IAAI,CAAC;CACrB,CAAC;AAsBF,eAAO,MAAM,qBAAqB,EAAE,KAAK,CAAC,EAAE,CAAC,0BAA0B,CAoBtE,CAAC"}

@@ -28,3 +28,4 @@ export declare const TypographyList: React.ForwardRefExoticComponent<import("@cl
 } & {
     as: "ol" | "ul";
 } & React.RefAttributes<HTMLOListElement | HTMLUListElement>>;
+//# sourceMappingURL=TypographyList.d.ts.map

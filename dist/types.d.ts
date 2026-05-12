@@ -14,7 +14,7 @@ export type PropsObject<T extends Component> = React.ComponentPropsWithoutRef<T>
 export type DefaultPropsObject<T extends Component> = DeepPartial<PropsObject<T>>;
 export type DefaultPropsFunction<T extends Component> = (props: PropsObject<T>) => DefaultPropsObject<T>;
 export type DefaultProps<T extends Component> = DefaultPropsObject<T> | DefaultPropsFunction<T>;
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type MakeOptional<T, K extends PropertyKey> = T extends any ? Omit<T, Extract<K, keyof T>> & Partial<Pick<T, Extract<K, keyof T>>> : never;
 type ExtractDefaultPropKeys<T extends Component, D extends DefaultProps<T>> = D extends DefaultPropsFunction<T> ? keyof ReturnType<D> : D extends DefaultPropsObject<T> ? keyof D : never;
 export type WithPropsResult<T extends Component, D extends DefaultProps<T>> = MakeOptional<PropsObject<T>, ExtractDefaultPropKeys<T, D>>;
 export {};

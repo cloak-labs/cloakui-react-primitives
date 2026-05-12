@@ -35,8 +35,12 @@ export type DefaultProps<T extends Component> =
   | DefaultPropsObject<T>
   | DefaultPropsFunction<T>;
 
-// Helper type to make keys optional
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+// Helper type to make keys optional.
+// Important: this must distribute over unions to preserve discriminated unions
+// (e.g. GridComponentProps = GridTypeProps | MasonryTypeProps).
+type MakeOptional<T, K extends PropertyKey> = T extends any
+  ? Omit<T, Extract<K, keyof T>> & Partial<Pick<T, Extract<K, keyof T>>>
+  : never;
 
 // Extract keys from default props (handles both object and function cases)
 type ExtractDefaultPropKeys<

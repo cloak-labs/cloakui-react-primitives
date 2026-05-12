@@ -41,7 +41,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ) => {
     if (!href || href === "#") {
       return Fallback
-        ? React.createElement(Fallback, { ref, ...props }, children)
+        ? React.isValidElement(Fallback) ? Fallback : React.createElement(Fallback, { ref, ...props }, children)
         : children;
     }
 

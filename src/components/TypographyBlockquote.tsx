@@ -10,10 +10,10 @@ export const TypographyBlockquote: FC<TTypographyBlockquoteProps> = ({
   ...props
 }) => (
   <blockquote
-    className={cx("mt-6 border-l-2 pl-6 italic", className)}
+    className={cx("mt-6 border-l-2 pl-6 italic flex flex-col", className)}
     {...props}
   >
     {children}
-    <p className={cx("font-medium mt-4", citationClassName)}>{citation}</p>
+    {citation && <p className={cx("font-medium mt-4", citationClassName)}>{citation}</p>}
   </blockquote>
 );

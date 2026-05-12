@@ -1,6 +1,5 @@
-import type { CSSProperties, FC, HTMLAttributes } from "react";
+import type { FC, ReactNode, CSSProperties, HTMLAttributes } from "react";
 import type { TTypographyProps } from "@cloakui/types";
-import type { ReactNode } from "react";
 
 export type TypographyProps<TClassName = string> = TTypographyProps<
   CSSProperties,

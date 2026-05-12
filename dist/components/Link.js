@@ -10,7 +10,7 @@ function stripTrailingSlash(url) {
 export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
     if (!href || href === "#") {
         return Fallback
-            ? React.createElement(Fallback, { ref, ...props }, children)
+            ? React.isValidElement(Fallback) ? Fallback : React.createElement(Fallback, { ref, ...props }, children)
             : children;
     }
     let currentURL;

@@ -9,9 +9,13 @@ function stripTrailingSlash(url) {
 }
 export const Link = React.forwardRef(({ href, openInNewTab = true, internalLinkComponent = "a", frontendUrl, fallbackAs: Fallback = "span", children, ...props }, ref) => {
     if (!href || href === "#") {
-        return Fallback
-            ? React.isValidElement(Fallback) ? Fallback : React.createElement(Fallback, { ref, ...props }, children)
-            : children;
+        if (!Fallback)
+            return children;
+        if (React.isValidElement(Fallback))
+            return Fallback;
+        // Fragments can't accept refs (React 19 warns / IO consumers crash).
+        const fallbackProps = Fallback === React.Fragment ? { ...props } : { ref, ...props };
+        return React.createElement(Fallback, fallbackProps, children);
     }
     let currentURL;
     if (typeof window !== "undefined") {

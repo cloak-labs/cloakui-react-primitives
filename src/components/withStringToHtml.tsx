@@ -1,36 +1,41 @@
 import React from "react";
 import { containsHtml } from "@cloakui/utils";
 
-// Make children optional in the props type
-type WithHtmlContentProps = {
+type WithChildren = {
   children?: React.ReactNode;
 };
 
-// Accept both ForwardRef components and regular function components
-type ComponentType<P = any> =
-  | React.ForwardRefExoticComponent<
-      React.PropsWithoutRef<P> & React.RefAttributes<any>
-    >
-  | React.FunctionComponent<P>
-  | React.ComponentClass<P>;
+type AnyComponent =
+  | React.ForwardRefExoticComponent<any>
+  | React.FunctionComponent<any>
+  | React.ComponentClass<any>;
+
+type PropsOf<C> = C extends React.ForwardRefExoticComponent<infer P>
+  ? React.PropsWithoutRef<P>
+  : C extends React.FunctionComponent<infer P>
+    ? P
+    : C extends React.ComponentClass<infer P>
+      ? P
+      : never;
 
 /**
  * HOC that conditionally renders children as HTML or React nodes.
  * If `children` is a string and contains HTML, it gets rendered via dangerouslySetInnerHTML
  * Otherwise, the `children` are rendered directly.
  */
-export function withStringToHtml<P extends Partial<WithHtmlContentProps>>(
-  Component: ComponentType<P>
+export function withStringToHtml<C extends AnyComponent>(
+  Component: C
 ): React.ForwardRefExoticComponent<
-  React.PropsWithoutRef<P> & React.RefAttributes<any>
+  React.PropsWithoutRef<PropsOf<C> & WithChildren> & React.RefAttributes<any>
 > {
-  const WithStringToHtml = React.forwardRef<any, P>((props, ref) => {
+  const WithStringToHtml = React.forwardRef<any, PropsOf<C> & WithChildren>(
+    (props, ref) => {
     const { children, ...rest } = props;
 
     const supportsRef =
       typeof Component === "object" &&
       Component !== null &&
-      "$$typeof" in (Component as ComponentType<P>) &&
+      "$$typeof" in (Component as AnyComponent) &&
       (Component as any).$$typeof === Symbol.for("react.forward_ref");
 
     if (typeof children === "string" && containsHtml(children)) {

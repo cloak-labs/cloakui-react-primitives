@@ -21,7 +21,7 @@ export type LinkProps<
   children: string | React.ReactNode;
   openInNewTab?: boolean;
   fallbackAs?: React.ElementType | null;
-  internalLinkComponent?: TInternalLink | keyof JSX.IntrinsicElements;
+  internalLinkComponent?: TInternalLink | keyof React.JSX.IntrinsicElements;
   /** Provide your site's frontend URL in order for internal links to render properly server-side */
   frontendUrl?: string;
 };
@@ -40,9 +40,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     if (!href || href === "#") {
-      return Fallback
-        ? React.isValidElement(Fallback) ? Fallback : React.createElement(Fallback, { ref, ...props }, children)
-        : children;
+      if (!Fallback) return children;
+      if (React.isValidElement(Fallback)) return Fallback;
+      // Fragments can't accept refs (React 19 warns / IO consumers crash).
+      const fallbackProps =
+        Fallback === React.Fragment ? { ...props } : { ref, ...props };
+      return React.createElement(Fallback, fallbackProps, children);
     }
 
     let currentURL: string | undefined;

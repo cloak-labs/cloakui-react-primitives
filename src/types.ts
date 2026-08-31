@@ -22,9 +22,19 @@ export type ReactGenericParentComponentWithCx<TChildren = ReactNode> =
   ReactGenericParentComponent<ClassValue, TChildren>;
 
 // used in `withProps`:
-export type Component = React.ComponentType<any> | keyof HTMLElementTagNameMap;
+// Must extend React.ElementType so React.ComponentRef<T> is valid (React 19).
+export type Component = React.ElementType;
+
 export type PropsObject<T extends Component> =
-  React.ComponentPropsWithoutRef<T>;
+  T extends React.ForwardRefExoticComponent<infer P>
+    ? React.PropsWithoutRef<P>
+    : T extends React.FunctionComponent<infer P>
+      ? P
+      : T extends keyof HTMLElementTagNameMap
+        ? React.ComponentPropsWithoutRef<T>
+        : T extends React.ComponentType<infer P>
+          ? P
+          : never;
 export type DefaultPropsObject<T extends Component> = DeepPartial<
   PropsObject<T>
 >;

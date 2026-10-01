@@ -1,3 +1,4 @@
+"use strict";
 // import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // import { nightOwl } from "react-syntax-highlighter/dist/cjs/styles/prism";
 // import type { FC, ReactNode } from "react";

@@ -51,8 +51,12 @@ export function withProps(Component, defaultProps) {
             for (const propKey of propKeys) {
                 const defaultPropValue = finalDefaultProps[propKey];
                 const instancePropValue = props[propKey];
-                if ((defaultPropValue && isObject(defaultPropValue) && "className" in defaultPropValue) ||
-                    (instancePropValue && isObject(instancePropValue) && "className" in instancePropValue)) {
+                if ((defaultPropValue &&
+                    isObject(defaultPropValue) &&
+                    "className" in defaultPropValue) ||
+                    (instancePropValue &&
+                        isObject(instancePropValue) &&
+                        "className" in instancePropValue)) {
                     merged[propKey] = {
                         ...(defaultPropValue || {}),
                         ...(instancePropValue || {}),

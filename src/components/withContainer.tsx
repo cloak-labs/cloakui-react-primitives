@@ -13,6 +13,6 @@ export function withContainer<T extends Component>(component: T) {
           {children ? <Component>{children}</Component> : <Component />}
         </Container>
       );
-    }
+    },
   );
 }

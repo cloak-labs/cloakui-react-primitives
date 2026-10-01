@@ -28,7 +28,7 @@ export type LinkProps<
     href: Url;
   }> = React.ComponentType<{
     href: Url;
-  }>
+  }>,
 > = React.ComponentPropsWithoutRef<"a"> & {
   ref?: React.Ref<any>;
   children: string | React.ReactNode;
@@ -50,7 +50,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     if (!href || href === "#") {
       if (!Fallback) return children;
@@ -80,7 +80,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return React.createElement(
         "a",
         { ref, href: hrefString, ...props },
-        children
+        children,
       );
     }
 
@@ -89,7 +89,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return React.createElement(
         Comp,
         { ref, href: stripTrailingSlash(href), ...props },
-        children
+        children,
       );
     }
 
@@ -111,9 +111,9 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         href: finalHref,
         ...props,
       },
-      children
+      children,
     );
-  }
+  },
 );
 
 Link.displayName = "Link";

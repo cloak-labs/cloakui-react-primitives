@@ -4,7 +4,7 @@ export type ConditionalWrapperProps = {
   condition: (() => boolean) | boolean | string;
   wrapper: (children: ReactNode) => ReactNode;
   children: ReactNode;
-}
+};
 
 export const ConditionalWrapper = ({
   condition,

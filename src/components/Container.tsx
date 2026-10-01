@@ -18,7 +18,7 @@ export const Container = React.forwardRef<HTMLDivElement, ReactContainerProps>(
         {renderedChildren}
       </Element>
     );
-  }
+  },
 );
 
 Container.displayName = "Container";

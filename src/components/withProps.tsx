@@ -30,9 +30,7 @@ export function withProps<
   >(function ExtendComponent(props, ref) {
     const isDefaultPropsFunction = typeof defaultProps === "function";
     const finalDefaultProps = isDefaultPropsFunction
-      ? (defaultProps as DefaultPropsFunction<T>)(
-          props as PropsObject<T>,
-        )
+      ? (defaultProps as DefaultPropsFunction<T>)(props as PropsObject<T>)
       : defaultProps;
 
     if (
@@ -81,21 +79,29 @@ export function withProps<
       }
 
       // Merge nested className inside *Props props
-      const propKeys = new Set([...defaultKeys, ...instanceKeys].filter((key) => key.endsWith("Props")));
+      const propKeys = new Set(
+        [...defaultKeys, ...instanceKeys].filter((key) =>
+          key.endsWith("Props"),
+        ),
+      );
       for (const propKey of propKeys) {
         const defaultPropValue = (finalDefaultProps as any)[propKey];
         const instancePropValue = (props as any)[propKey];
 
         if (
-          (defaultPropValue && isObject(defaultPropValue) && "className" in defaultPropValue) ||
-          (instancePropValue && isObject(instancePropValue) && "className" in instancePropValue)
+          (defaultPropValue &&
+            isObject(defaultPropValue) &&
+            "className" in defaultPropValue) ||
+          (instancePropValue &&
+            isObject(instancePropValue) &&
+            "className" in instancePropValue)
         ) {
           merged[propKey] = {
             ...(defaultPropValue || {}),
             ...(instancePropValue || {}),
             className: cx(
               defaultPropValue?.className,
-              instancePropValue?.className
+              instancePropValue?.className,
             ),
           };
         }

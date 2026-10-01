@@ -14,6 +14,8 @@ export const TypographyBlockquote: FC<TTypographyBlockquoteProps> = ({
     {...props}
   >
     {children}
-    {citation && <p className={cx("font-medium mt-4", citationClassName)}>{citation}</p>}
+    {citation && (
+      <p className={cx("font-medium mt-4", citationClassName)}>{citation}</p>
+    )}
   </blockquote>
 );

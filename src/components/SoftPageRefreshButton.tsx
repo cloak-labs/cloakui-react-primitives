@@ -36,7 +36,7 @@ export const SoftPageRefreshButton: React.FC<SoftPageRefreshButtonProps> = ({
     <div
       className={cx(
         "fixed bottom-3 right-2 z-50 flex size-8 cursor-pointer items-center justify-center rounded-full brightness-125 bg-root-invert p-1.5 text-root-invert shadow-md hover:bg-root-invert/80",
-        className
+        className,
       )}
       onClick={onClick}
       {...props}

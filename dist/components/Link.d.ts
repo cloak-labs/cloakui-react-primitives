@@ -1,6 +1,17 @@
-/// <reference types="node" />
 import React from "react";
-import { type UrlObject } from "url";
+type UrlObject = {
+    auth?: string | null;
+    hash?: string | null;
+    host?: string | null;
+    hostname?: string | null;
+    href?: string | null;
+    pathname?: string | null;
+    protocol?: string | null;
+    search?: string | null;
+    slashes?: boolean | null;
+    port?: string | number | null;
+    query?: string | null | Record<string, unknown>;
+};
 type Url = string | UrlObject;
 export type LinkProps<TInternalLink extends React.ComponentType<{
     href: Url;

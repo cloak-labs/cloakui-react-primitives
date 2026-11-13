@@ -45,20 +45,20 @@
   },
   "homepage": "https://github.com/cloak-labs/cloakui-react-primitives#readme",
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
     "@cloakui/utils": "^0.1.4",
     "@kaelan/deep-merge-ts": "^0.0.1",
-    "@radix-ui/react-slot": "^1.0.2",
     "react-syntax-highlighter": "^15.5.0"
   },
   "devDependencies": {
+    "@cloakui/styles": "workspace:*",
     "@cloakui/types": "^0.1.4",
     "@types/node": "^18.19.130",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
+    "oxfmt": "0.71.0",
     "ts-essentials": "^9.4.1",
-    "typescript": "7.0.2",
-    "@cloakui/styles": "workspace:*",
-    "oxfmt": "0.71.0"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "@cloakui/styles": ">= 0.3.x",
